@@ -1,0 +1,63 @@
+<div class="row">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><?= $this->tag->linkTo(['product/index', 'Go Back']) ?></li>
+            <li class="next"><?= $this->tag->linkTo(['product/new', 'Create ']) ?></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-header">
+    <h1>Search result</h1>
+</div>
+
+<?= $this->getContent() ?>
+
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php if (isset($page->items)) { ?>
+        <?php foreach ($page->items as $product) { ?>
+            <tr>
+                <td><?= $product->getId() ?></td>
+            <td><?= $product->getName() ?></td>
+            <td><?= $product->getType() ?></td>
+            <td><?= $product->getPrice() ?></td>
+
+                <td><?= $this->tag->linkTo(['product/edit/' . $product->getId(), 'Edit']) ?></td>
+                <td><?= $this->tag->linkTo(['product/delete/' . $product->getId(), 'Delete']) ?></td>
+            </tr>
+        <?php } ?>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-sm-1">
+        <p class="pagination" style="line-height: 1.42857;padding: 6px 12px;">
+            <?= $page->current . '/' . $page->total_pages ?>
+        </p>
+    </div>
+    <div class="col-sm-11">
+        <nav>
+            <ul class="pagination">
+                <li><?= $this->tag->linkTo(['product/search', 'First']) ?></li>
+                <li><?= $this->tag->linkTo(['product/search?page=' . $page->before, 'Previous']) ?></li>
+                <li><?= $this->tag->linkTo(['product/search?page=' . $page->next, 'Next']) ?></li>
+                <li><?= $this->tag->linkTo(['product/search?page=' . $page->last, 'Last']) ?></li>
+            </ul>
+        </nav>
+    </div>
+</div>
